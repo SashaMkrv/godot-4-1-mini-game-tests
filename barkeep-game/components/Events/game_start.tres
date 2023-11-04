@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="BarEvent" load_steps=2 format=3 uid="uid://comjbwutktqdx"]
+
+[ext_resource type="Script" path="res://barkeep-game/scripts/eventname.gd" id="1_x8wpa"]
+
+[resource]
+script = ExtResource("1_x8wpa")
+name = "game_start"

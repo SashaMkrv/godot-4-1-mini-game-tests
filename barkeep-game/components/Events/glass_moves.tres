@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="BarEvent" load_steps=2 format=3 uid="uid://b4f5epjt6m6bl"]
+
+[ext_resource type="Script" path="res://barkeep-game/scripts/eventname.gd" id="1_pn1kj"]
+
+[resource]
+script = ExtResource("1_pn1kj")
+name = "glass_moves"

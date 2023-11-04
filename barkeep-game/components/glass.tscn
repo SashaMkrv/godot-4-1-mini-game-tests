@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://c28ncn5rmj1ml"]
+
+[ext_resource type="Script" path="res://barkeep-game/scripts/glass.gd" id="1_84ssn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_raoqo"]
+
+[node name="glass" type="Node2D"]
+script = ExtResource("1_84ssn")
+
+[node name="glassshape" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(-9, -10, -11, 10, 11, 11, 9, -10)
+
+[node name="glasscollision" type="Area2D" parent="." groups=["glass"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="glasscollision"]
+shape = SubResource("RectangleShape2D_raoqo")
+
+[connection signal="area_entered" from="glasscollision" to="." method="_on_glasscollision_area_entered"]

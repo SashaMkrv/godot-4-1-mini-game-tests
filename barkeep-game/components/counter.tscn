@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://cshw161vw4lw3"]
+
+[ext_resource type="Script" path="res://barkeep-game/scripts/counter.gd" id="1_oo0jl"]
+[ext_resource type="PackedScene" uid="uid://c28ncn5rmj1ml" path="res://barkeep-game/components/glass.tscn" id="2_n7btv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uilx8"]
+size = Vector2(180, 86)
+
+[node name="counter" type="Node2D"]
+script = ExtResource("1_oo0jl")
+
+[node name="countershape" type="Polygon2D" parent="."]
+color = Color(0.419608, 0.101961, 0.827451, 1)
+polygon = PackedVector2Array(-42, -29, -42, 32, 332, 31, 333, -30)
+
+[node name="spawnpoint" type="Node2D" parent="."]
+position = Vector2(415, -1)
+
+[node name="glass" parent="." instance=ExtResource("2_n7btv")]
+
+[node name="catcharea" type="Area2D" parent="." groups=["catch"]]
+position = Vector2(420, -11)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="catcharea"]
+position = Vector2(-1, -2)
+shape = SubResource("RectangleShape2D_uilx8")

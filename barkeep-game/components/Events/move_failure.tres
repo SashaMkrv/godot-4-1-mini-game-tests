@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="BarEvent" load_steps=2 format=3 uid="uid://dn7wesg1curp"]
+
+[ext_resource type="Script" path="res://barkeep-game/scripts/eventname.gd" id="1_so83b"]
+
+[resource]
+script = ExtResource("1_so83b")
+name = "move_failure"

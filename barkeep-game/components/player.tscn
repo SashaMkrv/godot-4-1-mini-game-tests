@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://bsrmrfo2ty4jy"]
+
+[ext_resource type="Script" path="res://barkeep-game/scripts/player.gd" id="1_8vx2n"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7eqm2"]
+size = Vector2(60, 60)
+
+[node name="player" type="Node2D"]
+script = ExtResource("1_8vx2n")
+
+[node name="playershape" type="Polygon2D" parent="."]
+position = Vector2(4, 0)
+color = Color(0.964706, 0.509804, 0.631373, 1)
+polygon = PackedVector2Array(-39, -33, -41, 29, 40, 31, 32, -36)
+
+[node name="playeractivearea" type="Area2D" parent="." groups=["player"]]
+visible = false
+
+[node name="collisionarea" type="CollisionShape2D" parent="playeractivearea"]
+shape = SubResource("RectangleShape2D_7eqm2")

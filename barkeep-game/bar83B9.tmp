@@ -1,0 +1,114 @@
+[gd_scene load_steps=7 format=3 uid="uid://cqe6cbl1vagu6"]
+
+[ext_resource type="Script" path="res://barkeep-game/scripts/counterprovider.gd" id="1_63kcx"]
+[ext_resource type="PackedScene" uid="uid://cshw161vw4lw3" path="res://barkeep-game/components/counter.tscn" id="1_hqns3"]
+[ext_resource type="PackedScene" uid="uid://bsrmrfo2ty4jy" path="res://barkeep-game/components/player.tscn" id="2_b02sf"]
+[ext_resource type="Script" path="res://barkeep-game/scripts/playermover.gd" id="4_bkckm"]
+
+[sub_resource type="SystemFont" id="SystemFont_uq2fv"]
+font_names = PackedStringArray("Monospace")
+
+[sub_resource type="LabelSettings" id="LabelSettings_0s2op"]
+font = SubResource("SystemFont_uq2fv")
+font_size = 30
+outline_size = 8
+outline_color = Color(0.631373, 0.247059, 0.298039, 1)
+
+[node name="barkeep" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="verybackground" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.835294, 0.482353, 0.545098, 1)
+
+[node name="vbox" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="hbox" type="HBoxContainer" parent="vbox"]
+layout_mode = 2
+alignment = 1
+
+[node name="scoremargin" type="MarginContainer" parent="vbox/hbox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="score" type="Label" parent="vbox/hbox/scoremargin"]
+layout_mode = 2
+text = "20"
+label_settings = SubResource("LabelSettings_0s2op")
+horizontal_alignment = 2
+
+[node name="timemargin" type="MarginContainer" parent="vbox/hbox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="time" type="Label" parent="vbox/hbox/timemargin"]
+layout_mode = 2
+text = "1:32"
+label_settings = SubResource("LabelSettings_0s2op")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="vbox/hbox/timemargin"]
+visible = false
+layout_mode = 2
+bbcode_enabled = true
+text = "[code]1:32[/code]"
+
+[node name="gamebackground" type="ColorRect" parent="vbox"]
+layout_mode = 2
+size_flags_vertical = 3
+color = Color(0.988235, 1, 0.819608, 1)
+
+[node name="barkeepgame" type="Node2D" parent="."]
+
+[node name="counter" parent="barkeepgame" instance=ExtResource("1_hqns3")]
+position = Vector2(0, 150)
+
+[node name="counter2" parent="barkeepgame" instance=ExtResource("1_hqns3")]
+position = Vector2(0, 300)
+
+[node name="counter3" parent="barkeepgame" instance=ExtResource("1_hqns3")]
+position = Vector2(0, 450)
+
+[node name="counter4" parent="barkeepgame" instance=ExtResource("1_hqns3")]
+position = Vector2(0, 600)
+
+[node name="player" parent="barkeepgame" instance=ExtResource("2_b02sf")]
+position = Vector2(420, 141)
+
+[node name="gamescripts" type="Node" parent="barkeepgame"]
+
+[node name="counterprovider" type="Node" parent="barkeepgame/gamescripts" node_paths=PackedStringArray("counters", "defaultCounter")]
+script = ExtResource("1_63kcx")
+counters = [NodePath("../../counter"), NodePath("../../counter2"), NodePath("../../counter3"), NodePath("../../counter4")]
+defaultCounter = NodePath("../../counter2")
+
+[node name="scorekeeper" type="Node" parent="barkeepgame/gamescripts"]
+
+[node name="playermover" type="Node" parent="barkeepgame/gamescripts" node_paths=PackedStringArray("counterProvider", "player")]
+script = ExtResource("4_bkckm")
+counterProvider = NodePath("../counterprovider")
+player = NodePath("../../player")

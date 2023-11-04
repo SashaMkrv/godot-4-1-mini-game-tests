@@ -1,0 +1,17 @@
+Node
+Timer
+AudioStreamPlayer
+RichTextLabel
+ColorRect
+MarginContainer
+CenterContainer
+VBoxContainer
+Node2D
+StaticBody2D
+CollisionShape2D
+CollisionPolygon2D
+Area2D
+Polygon2D
+Control
+HBoxContainer
+Label
