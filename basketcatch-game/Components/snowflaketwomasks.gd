@@ -8,7 +8,7 @@ class_name SnowflakePro
 @export var deadAreas: Array[Area2D]
 @export var liveAreas: Array[Area2D]
 
-signal is_caught(snowflake: Snowflake)
+signal is_caught(snowflake: SnowflakePro)
 
 func _ready():
 	setAlive()
@@ -23,11 +23,9 @@ func _physics_process(delta: float) -> void:
 
 
 func _on_playercheck_area_entered(area : Area2D) -> void:
-	print_debug("player caught")
 	setCaught()
 
 func _on_snowcheck_area_entered(area : Area2D) -> void:
-	print_debug("dead???")
 	print_debug(area.name)
 	setDead()
 
@@ -49,5 +47,7 @@ func setCaught() -> void:
 
 func setAllMonitoringTo(areas: Array[Area2D], state: bool) -> void:
 	for area in areas:
-		area.monitoring = state
-		area.monitorable = state
+		area.set_deferred("monitorable", state)
+		area.set_deferred("monitoring", state)
+#		area.monitoring = state
+#		area.monitorable = state

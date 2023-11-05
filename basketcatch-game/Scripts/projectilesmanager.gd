@@ -30,6 +30,8 @@ func spawnSnowflakeAtRandomLocation() -> void:
 	# get a spot on the spawn line to chuck a snowflake at
 
 func spawnSnowflakeAt(newLocation: Vector2) -> void:
-	var snowflake = snowflakeScene.instantiate()
+	var node := snowflakeScene.instantiate()
+	var snowflake := node as SnowflakePro
 	snowflake.position = newLocation
 	add_child(snowflake)
+	snowflake.is_caught.connect(_on_snowflake_is_caught)
