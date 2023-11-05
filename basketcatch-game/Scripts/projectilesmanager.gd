@@ -16,10 +16,10 @@ func _physics_process(delta: float) -> void:
 		return
 #	print_debug("oh oh.")
 
-func _on_snowflake_is_caught(snowflake: Snowflake) -> void:
+func _on_snowflake_is_caught(snowflake: SnowflakePro) -> void:
 	snowflakeCatch(snowflake)
 
-func snowflakeCatch(snowflake: Snowflake) -> void:
+func snowflakeCatch(snowflake: SnowflakePro) -> void:
 	print_debug("Caught snowflake!")
 	snowflake.queue_free()
 	# play fun particle explosion where the snowflake was when it was caught

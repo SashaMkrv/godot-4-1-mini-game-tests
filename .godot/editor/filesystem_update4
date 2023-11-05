@@ -1,5 +1,8 @@
-res://basketcatch-game/basketcatch.tscn
+res://basketcatch-game/Components/snowflaketwomasks.tscn
 res://basketcatch-game/Assets/Style/basketlabels.tres
 res://basketcatch-game/Assets/Style/ijustlikethisnoise.tres
+res://basketcatch-game/Components/snowflaketwomasks.gd
+res://basketcatch-game/basketcatch.tscn
 res://basketcatch-game/Components/snowflake.tscn
 res://basketcatch-game/Scripts/projectilesmanager.gd
+res://basketcatch-game/Scripts/snowflake.gd

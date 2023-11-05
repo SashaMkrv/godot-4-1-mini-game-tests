@@ -1,0 +1,49 @@
+[gd_scene load_steps=5 format=3 uid="uid://3aebjlgmyiij"]
+
+[ext_resource type="Script" path="res://basketcatch-game/Components/snowflaketwomasks.gd" id="1_eg6u6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_65q7v"]
+size = Vector2(5, 19)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bvudu"]
+size = Vector2(25, 25)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_aadqx"]
+size = Vector2(5, 20)
+
+[node name="snowflake" type="Node2D" node_paths=PackedStringArray("deadAreas", "liveAreas")]
+script = ExtResource("1_eg6u6")
+deadAreas = [NodePath("deadchecks")]
+liveAreas = [NodePath("livechecks/playercheck"), NodePath("livechecks/snowcheck")]
+
+[node name="snowflakepolygon" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(-11, -11, -11, 11, 11, 10, 12, -10)
+
+[node name="deadchecks" type="Area2D" parent="." groups=["snowflake"]]
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="deadchecks"]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_65q7v")
+
+[node name="livechecks" type="Node2D" parent="."]
+
+[node name="playercheck" type="Area2D" parent="livechecks"]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="livechecks/playercheck"]
+shape = SubResource("RectangleShape2D_bvudu")
+
+[node name="snowcheck" type="Area2D" parent="livechecks"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="livechecks/snowcheck"]
+shape = SubResource("RectangleShape2D_aadqx")
+
+[connection signal="area_entered" from="deadchecks" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_entered" from="livechecks/playercheck" to="." method="_on_playercheck_area_entered"]
+[connection signal="area_entered" from="livechecks/snowcheck" to="." method="_on_snowcheck_area_entered"]

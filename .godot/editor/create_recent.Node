@@ -1,5 +1,6 @@
 CollisionShape2D
 Area2D
+RayCast2D
 Node2D
 StaticBody2D
 Polygon2D

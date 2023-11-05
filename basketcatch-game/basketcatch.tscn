@@ -2,9 +2,9 @@
 
 [ext_resource type="LabelSettings" uid="uid://dqb4gaweqdsqs" path="res://basketcatch-game/Assets/Style/basketlabels.tres" id="1_gvvrj"]
 [ext_resource type="Script" path="res://basketcatch-game/Scripts/player.gd" id="1_k0g3o"]
-[ext_resource type="PackedScene" uid="uid://c00pstnnx3a4j" path="res://basketcatch-game/Components/snowflake.tscn" id="2_g7v0q"]
 [ext_resource type="Script" path="res://basketcatch-game/Scripts/projectilesmanager.gd" id="2_oo23r"]
 [ext_resource type="Texture2D" uid="uid://ds6e06pye315m" path="res://basketcatch-game/Assets/Style/ijustlikethisnoise.tres" id="3_mwsib"]
+[ext_resource type="PackedScene" uid="uid://3aebjlgmyiij" path="res://basketcatch-game/Components/snowflaketwomasks.tscn" id="3_ubp75"]
 [ext_resource type="Script" path="res://basketcatch-game/spawnarea.gd" id="4_45opj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sbedy"]
@@ -72,10 +72,7 @@ shape = SubResource("RectangleShape2D_shkko")
 editor_description = "as muhc as i would like to name the layers the snowflakes muck around in, that would make the other games here weird about them."
 script = ExtResource("2_oo23r")
 spawner = NodePath("../spawnarea")
-snowflakeScene = ExtResource("2_g7v0q")
-
-[node name="snowflake" parent="basketcatch-game/projectiles" instance=ExtResource("2_g7v0q")]
-position = Vector2(93, 299)
+snowflakeScene = ExtResource("3_ubp75")
 
 [node name="spawnarea" type="Node2D" parent="basketcatch-game"]
 script = ExtResource("4_45opj")
@@ -100,6 +97,8 @@ polygon = PackedVector2Array(-40, 237, 389, 241, 391, 178, 367, 156, 308, 158, 3
 position = Vector2(272, 731)
 
 [node name="despawn" type="Area2D" parent="basketcatch-game/failarea" groups=["despawn"]]
+collision_layer = 2
+collision_mask = 0
 
 [node name="groundpolygon" type="Polygon2D" parent="basketcatch-game/failarea/despawn"]
 position = Vector2(-963, -1628)
@@ -209,5 +208,3 @@ layout_mode = 2
 icon = ExtResource("3_mwsib")
 flat = true
 icon_alignment = 1
-
-[connection signal="is_caught" from="basketcatch-game/projectiles/snowflake" to="basketcatch-game/projectiles" method="_on_snowflake_is_caught"]
