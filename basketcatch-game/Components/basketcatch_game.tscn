@@ -1,0 +1,147 @@
+[gd_scene load_steps=15 format=3 uid="uid://c8w3orvy0d2um"]
+
+[ext_resource type="Script" path="res://basketcatch-game/Scripts/basketcatch-game.gd" id="1_pmaxd"]
+[ext_resource type="Script" path="res://basketcatch-game/Scripts/player.gd" id="2_l480u"]
+[ext_resource type="Script" path="res://basketcatch-game/Scripts/projectilesmanager.gd" id="3_q1kd1"]
+[ext_resource type="PackedScene" uid="uid://3aebjlgmyiij" path="res://basketcatch-game/Components/snowflaketwomasks.tscn" id="4_noh8t"]
+[ext_resource type="Script" path="res://basketcatch-game/spawnarea.gd" id="5_csheb"]
+[ext_resource type="Script" path="res://basketcatch-game/Scripts/gamelogic.gd" id="6_8ummr"]
+[ext_resource type="Script" path="res://basketcatch-game/Scripts/visualeffects.gd" id="7_2l4hu"]
+[ext_resource type="PackedScene" uid="uid://k6ug2rv8utbc" path="res://basketcatch-game/Components/snowcatchparticles.tscn" id="8_rbb54"]
+[ext_resource type="PackedScene" uid="uid://c881d372ar4m6" path="res://basketcatch-game/Components/eventlistener.tscn" id="9_slps1"]
+[ext_resource type="Script" path="res://basketcatch-game/Scripts/gameinfotracker.gd" id="10_jx4jf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sbedy"]
+size = Vector2(93, 113)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_shkko"]
+size = Vector2(90, 60)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_d1hwl"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lqjxy"]
+size = Vector2(20, 800)
+
+[node name="basketcatch-game" type="Node2D"]
+script = ExtResource("1_pmaxd")
+
+[node name="player" type="CharacterBody2D" parent="."]
+editor_description = "does this use physics process to check if a key is pressed for moving? yes. absolutely. make sure pausing works right, buddy!"
+position = Vector2(244, 701)
+motion_mode = 1
+script = ExtResource("2_l480u")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="player"]
+position = Vector2(1.5, -26.5)
+shape = SubResource("RectangleShape2D_sbedy")
+
+[node name="playershape" type="Node2D" parent="player"]
+
+[node name="playerbody" type="Polygon2D" parent="player/playershape"]
+color = Color(0.84, 0.6888, 0.71652, 1)
+polygon = PackedVector2Array(-30, -31, -29, 31, 29, 30, 31, -29, 1.54016, -29.9659)
+
+[node name="basketbody" type="Polygon2D" parent="player/playershape"]
+color = Color(0.78, 0.3978, 0.46787, 1)
+polygon = PackedVector2Array(-46, -83, -44, -24, 47, -26, 47, -82)
+
+[node name="playerhand" type="Polygon2D" parent="player/playershape"]
+position = Vector2(-24, -31)
+color = Color(0.84, 0.6888, 0.71652, 1)
+polygon = PackedVector2Array(-5, -4, -6, 10, 12, 9, 13, -5)
+
+[node name="scorearea" type="Area2D" parent="player" groups=["player"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="player/scorearea"]
+position = Vector2(1, -52)
+shape = SubResource("RectangleShape2D_shkko")
+
+[node name="projectiles" type="Node2D" parent="." node_paths=PackedStringArray("spawner")]
+editor_description = "as muhc as i would like to name the layers the snowflakes muck around in, that would make the other games here weird about them."
+script = ExtResource("3_q1kd1")
+spawner = NodePath("../spawnarea")
+snowflakeScene = ExtResource("4_noh8t")
+
+[node name="spawnarea" type="Node2D" parent="."]
+script = ExtResource("5_csheb")
+
+[node name="spawnline" type="Line2D" parent="spawnarea"]
+points = PackedVector2Array(2, 300, 499, 300)
+
+[node name="clouds" type="Node2D" parent="spawnarea"]
+
+[node name="cloud2" type="Polygon2D" parent="spawnarea/clouds"]
+position = Vector2(304, 90)
+scale = Vector2(1.00232, 1)
+color = Color(0.921569, 0.882353, 0.894118, 1)
+polygon = PackedVector2Array(-40, 237, 389, 241, 391, 178, 367, 156, 308, 158, 306, 100, 278, 72, 211, 58, 180, 72, 119.63, 61, 70.7431, 73, 50.7894, 123, -15.0579, 123, -43.9908, 173)
+
+[node name="cloud" type="Polygon2D" parent="spawnarea/clouds"]
+position = Vector2(3, 105)
+color = Color(0.84, 0.7812, 0.79198, 1)
+polygon = PackedVector2Array(-40, 237, 389, 241, 391, 178, 367, 156, 308, 158, 306, 100, 278, 72, 211, 58, 180, 72, 142, 36, 110, 17, 65, 35, 17, 7, -35, 20)
+
+[node name="failarea" type="Node2D" parent="."]
+position = Vector2(272, 731)
+
+[node name="despawn" type="Area2D" parent="failarea" groups=["despawn"]]
+collision_layer = 2
+collision_mask = 0
+
+[node name="groundpolygon" type="Polygon2D" parent="failarea/despawn"]
+position = Vector2(-963, -1628)
+polygon = PackedVector2Array(639, 1631, 1228, 1631, 1311, 1835, 563, 1813)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="failarea/despawn"]
+shape = SubResource("WorldBoundaryShape2D_d1hwl")
+one_way_collision_margin = 5.0
+
+[node name="boundary" type="StaticBody2D" parent="."]
+position = Vector2(254, 392)
+
+[node name="left" type="CollisionShape2D" parent="boundary"]
+position = Vector2(-262, 3)
+shape = SubResource("RectangleShape2D_lqjxy")
+
+[node name="right" type="CollisionShape2D" parent="boundary"]
+position = Vector2(256, 5)
+shape = SubResource("RectangleShape2D_lqjxy")
+
+[node name="gamelogic" type="Node" parent="." node_paths=PackedStringArray("eventListeners")]
+script = ExtResource("6_8ummr")
+eventListeners = [NodePath("soundeffects/eventlistener"), NodePath("visualeffects/eventlistener"), NodePath("music/eventlistener"), NodePath("scorekeeper/eventlistener"), NodePath("timekeeper/eventlistener")]
+
+[node name="visualeffects" type="Node" parent="gamelogic"]
+script = ExtResource("7_2l4hu")
+snowflakeCatchEventEffect = ExtResource("8_rbb54")
+
+[node name="eventlistener" parent="gamelogic/visualeffects" instance=ExtResource("9_slps1")]
+
+[node name="soundeffects" type="Node" parent="gamelogic"]
+
+[node name="scoreplayer" type="AudioStreamPlayer" parent="gamelogic/soundeffects"]
+
+[node name="eventlistener" parent="gamelogic/soundeffects" instance=ExtResource("9_slps1")]
+
+[node name="music" type="Node" parent="gamelogic"]
+
+[node name="musicplayer" type="AudioStreamPlayer" parent="gamelogic/music"]
+
+[node name="eventlistener" parent="gamelogic/music" instance=ExtResource("9_slps1")]
+
+[node name="scorekeeper" type="Node" parent="gamelogic"]
+script = ExtResource("10_jx4jf")
+
+[node name="eventlistener" parent="gamelogic/scorekeeper" instance=ExtResource("9_slps1")]
+
+[node name="timekeeper" type="Node" parent="gamelogic"]
+
+[node name="eventlistener" parent="gamelogic/timekeeper" instance=ExtResource("9_slps1")]
+
+[node name="Timer" type="Timer" parent="gamelogic/timekeeper"]
+
+[connection signal="snowflake_caught" from="projectiles" to="." method="_on_projectiles_snowflake_caught"]
+[connection signal="event_happened" from="gamelogic" to="." method="_on_gamelogic_event_happened"]
+[connection signal="event_happened" from="gamelogic/visualeffects/eventlistener" to="gamelogic/visualeffects" method="_on_eventlistener_event_happened"]
+[connection signal="event_happened" from="gamelogic/scorekeeper" to="gamelogic" method="_on_scorekeeper_event_happened"]
+[connection signal="event_happened" from="gamelogic/scorekeeper/eventlistener" to="gamelogic/scorekeeper" method="_on_eventlistener_event_happened"]

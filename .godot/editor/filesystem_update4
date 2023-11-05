@@ -6,3 +6,16 @@ res://basketcatch-game/basketcatch.tscn
 res://basketcatch-game/Components/snowflake.tscn
 res://basketcatch-game/Scripts/projectilesmanager.gd
 res://basketcatch-game/Scripts/snowflake.gd
+res://basketcatch-game/Components/snowcatchparticles.tscn
+res://basketcatch-game/Scripts/basketcatch-game.gd
+res://basketcatch-game/Scripts/basketevent.gd
+res://basketcatch-game/Scripts/catchevent.gd
+res://basketcatch-game/Scripts/gamelogic.gd
+res://basketcatch-game/spawnarea.gd
+res://basketcatch-game/Scripts/scoreevent.gd
+res://basketcatch-game/Scripts/visualeffects.gd
+res://basketcatch-game/Scripts/eventlistener.gd
+res://basketcatch-game/Scripts/gameinfotracker.gd
+res://basketcatch-game/Scripts/basketcatchgameevent.gd
+res://basketcatch-game/Scripts/scoreupdatedevent.gd
+res://basketcatch-game/Components/basketcatch_game.tscn

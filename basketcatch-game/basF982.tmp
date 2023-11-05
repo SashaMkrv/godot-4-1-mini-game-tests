@@ -1,0 +1,252 @@
+[gd_scene load_steps=17 format=3 uid="uid://lro3hh0womev"]
+
+[ext_resource type="LabelSettings" uid="uid://dqb4gaweqdsqs" path="res://basketcatch-game/Assets/Style/basketlabels.tres" id="1_gvvrj"]
+[ext_resource type="Script" path="res://basketcatch-game/Scripts/player.gd" id="1_k0g3o"]
+[ext_resource type="Script" path="res://basketcatch-game/Scripts/basketcatch-game.gd" id="1_ks6dy"]
+[ext_resource type="Script" path="res://basketcatch-game/Scripts/projectilesmanager.gd" id="2_oo23r"]
+[ext_resource type="Texture2D" uid="uid://ds6e06pye315m" path="res://basketcatch-game/Assets/Style/ijustlikethisnoise.tres" id="3_mwsib"]
+[ext_resource type="PackedScene" uid="uid://3aebjlgmyiij" path="res://basketcatch-game/Components/snowflaketwomasks.tscn" id="3_ubp75"]
+[ext_resource type="Script" path="res://basketcatch-game/spawnarea.gd" id="4_45opj"]
+[ext_resource type="PackedScene" uid="uid://k6ug2rv8utbc" path="res://basketcatch-game/Components/snowcatchparticles.tscn" id="5_eo1vy"]
+[ext_resource type="Script" path="res://basketcatch-game/Scripts/gamelogic.gd" id="6_nkp64"]
+[ext_resource type="Script" path="res://basketcatch-game/Scripts/visualeffects.gd" id="7_wsnxa"]
+[ext_resource type="PackedScene" uid="uid://c881d372ar4m6" path="res://basketcatch-game/Components/eventlistener.tscn" id="9_wx34f"]
+[ext_resource type="Script" path="res://basketcatch-game/Scripts/gameinfotracker.gd" id="10_qsc0n"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sbedy"]
+size = Vector2(93, 113)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_shkko"]
+size = Vector2(90, 60)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_d1hwl"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lqjxy"]
+size = Vector2(20, 800)
+
+[node name="basketcatch" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.631373, 0.247059, 0.298039, 1)
+
+[node name="basketcatch-game" type="Node2D" parent="."]
+script = ExtResource("1_ks6dy")
+
+[node name="player" type="CharacterBody2D" parent="basketcatch-game"]
+editor_description = "does this use physics process to check if a key is pressed for moving? yes. absolutely. make sure pausing works right, buddy!"
+position = Vector2(244, 701)
+motion_mode = 1
+script = ExtResource("1_k0g3o")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="basketcatch-game/player"]
+position = Vector2(1.5, -26.5)
+shape = SubResource("RectangleShape2D_sbedy")
+
+[node name="playershape" type="Node2D" parent="basketcatch-game/player"]
+
+[node name="playerbody" type="Polygon2D" parent="basketcatch-game/player/playershape"]
+color = Color(0.84, 0.6888, 0.71652, 1)
+polygon = PackedVector2Array(-30, -31, -29, 31, 29, 30, 31, -29, 1.54016, -29.9659)
+
+[node name="basketbody" type="Polygon2D" parent="basketcatch-game/player/playershape"]
+color = Color(0.78, 0.3978, 0.46787, 1)
+polygon = PackedVector2Array(-46, -83, -44, -24, 47, -26, 47, -82)
+
+[node name="playerhand" type="Polygon2D" parent="basketcatch-game/player/playershape"]
+position = Vector2(-24, -31)
+color = Color(0.84, 0.6888, 0.71652, 1)
+polygon = PackedVector2Array(-5, -4, -6, 10, 12, 9, 13, -5)
+
+[node name="scorearea" type="Area2D" parent="basketcatch-game/player" groups=["player"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="basketcatch-game/player/scorearea"]
+position = Vector2(1, -52)
+shape = SubResource("RectangleShape2D_shkko")
+
+[node name="projectiles" type="Node2D" parent="basketcatch-game" node_paths=PackedStringArray("spawner")]
+editor_description = "as muhc as i would like to name the layers the snowflakes muck around in, that would make the other games here weird about them."
+script = ExtResource("2_oo23r")
+spawner = NodePath("../spawnarea")
+snowflakeScene = ExtResource("3_ubp75")
+
+[node name="spawnarea" type="Node2D" parent="basketcatch-game"]
+script = ExtResource("4_45opj")
+
+[node name="spawnline" type="Line2D" parent="basketcatch-game/spawnarea"]
+points = PackedVector2Array(2, 300, 499, 300)
+
+[node name="clouds" type="Node2D" parent="basketcatch-game/spawnarea"]
+
+[node name="cloud2" type="Polygon2D" parent="basketcatch-game/spawnarea/clouds"]
+position = Vector2(304, 90)
+scale = Vector2(1.00232, 1)
+color = Color(0.921569, 0.882353, 0.894118, 1)
+polygon = PackedVector2Array(-40, 237, 389, 241, 391, 178, 367, 156, 308, 158, 306, 100, 278, 72, 211, 58, 180, 72, 119.63, 61, 70.7431, 73, 50.7894, 123, -15.0579, 123, -43.9908, 173)
+
+[node name="cloud" type="Polygon2D" parent="basketcatch-game/spawnarea/clouds"]
+position = Vector2(3, 105)
+color = Color(0.84, 0.7812, 0.79198, 1)
+polygon = PackedVector2Array(-40, 237, 389, 241, 391, 178, 367, 156, 308, 158, 306, 100, 278, 72, 211, 58, 180, 72, 142, 36, 110, 17, 65, 35, 17, 7, -35, 20)
+
+[node name="failarea" type="Node2D" parent="basketcatch-game"]
+position = Vector2(272, 731)
+
+[node name="despawn" type="Area2D" parent="basketcatch-game/failarea" groups=["despawn"]]
+collision_layer = 2
+collision_mask = 0
+
+[node name="groundpolygon" type="Polygon2D" parent="basketcatch-game/failarea/despawn"]
+position = Vector2(-963, -1628)
+polygon = PackedVector2Array(639, 1631, 1228, 1631, 1311, 1835, 563, 1813)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="basketcatch-game/failarea/despawn"]
+shape = SubResource("WorldBoundaryShape2D_d1hwl")
+one_way_collision_margin = 5.0
+
+[node name="boundary" type="StaticBody2D" parent="basketcatch-game"]
+position = Vector2(254, 392)
+
+[node name="left" type="CollisionShape2D" parent="basketcatch-game/boundary"]
+position = Vector2(-262, 3)
+shape = SubResource("RectangleShape2D_lqjxy")
+
+[node name="right" type="CollisionShape2D" parent="basketcatch-game/boundary"]
+position = Vector2(256, 5)
+shape = SubResource("RectangleShape2D_lqjxy")
+
+[node name="gamelogic" type="Node" parent="basketcatch-game" node_paths=PackedStringArray("eventListeners")]
+script = ExtResource("6_nkp64")
+eventListeners = [NodePath("visualeffects/eventlistener"), NodePath("soundeffects/eventlistener"), NodePath("music/eventlistener"), NodePath("scorekeeper/eventlistener"), NodePath("timekeeper/eventlistener")]
+
+[node name="visualeffects" type="Node" parent="basketcatch-game/gamelogic"]
+script = ExtResource("7_wsnxa")
+snowflakeCatchEventEffect = ExtResource("5_eo1vy")
+
+[node name="eventlistener" parent="basketcatch-game/gamelogic/visualeffects" instance=ExtResource("9_wx34f")]
+
+[node name="soundeffects" type="Node" parent="basketcatch-game/gamelogic"]
+
+[node name="scoreplayer" type="AudioStreamPlayer" parent="basketcatch-game/gamelogic/soundeffects"]
+
+[node name="eventlistener" parent="basketcatch-game/gamelogic/soundeffects" instance=ExtResource("9_wx34f")]
+
+[node name="music" type="Node" parent="basketcatch-game/gamelogic"]
+
+[node name="musicplayer" type="AudioStreamPlayer" parent="basketcatch-game/gamelogic/music"]
+
+[node name="eventlistener" parent="basketcatch-game/gamelogic/music" instance=ExtResource("9_wx34f")]
+
+[node name="scorekeeper" type="Node" parent="basketcatch-game/gamelogic"]
+script = ExtResource("10_qsc0n")
+
+[node name="eventlistener" parent="basketcatch-game/gamelogic/scorekeeper" instance=ExtResource("9_wx34f")]
+
+[node name="timekeeper" type="Node" parent="basketcatch-game/gamelogic"]
+
+[node name="eventlistener" parent="basketcatch-game/gamelogic/timekeeper" instance=ExtResource("9_wx34f")]
+
+[node name="Timer" type="Timer" parent="basketcatch-game/gamelogic/timekeeper"]
+
+[node name="UI" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="UI"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ScoreHBoxContainer" type="HBoxContainer" parent="UI/MarginContainer/HBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="scoretextlabel" type="Label" parent="UI/MarginContainer/HBoxContainer/MarginContainer/ScoreHBoxContainer"]
+layout_mode = 2
+text = "Caught:"
+label_settings = ExtResource("1_gvvrj")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/MarginContainer/HBoxContainer/MarginContainer/ScoreHBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+
+[node name="ColorRect" type="ColorRect" parent="UI/MarginContainer/HBoxContainer/MarginContainer/ScoreHBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/MarginContainer/HBoxContainer/MarginContainer/ScoreHBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+
+[node name="scorelabel" type="Label" parent="UI/MarginContainer/HBoxContainer/MarginContainer/ScoreHBoxContainer/MarginContainer/MarginContainer"]
+layout_mode = 2
+text = "0"
+label_settings = ExtResource("1_gvvrj")
+
+[node name="MarginContainer2" type="MarginContainer" parent="UI/MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="UI/MarginContainer/HBoxContainer/MarginContainer2"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/MarginContainer/HBoxContainer/MarginContainer2"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+
+[node name="Label" type="Label" parent="UI/MarginContainer/HBoxContainer/MarginContainer2/MarginContainer"]
+layout_mode = 2
+text = "10:00"
+label_settings = ExtResource("1_gvvrj")
+
+[node name="MarginContainer3" type="MarginContainer" parent="UI/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+
+[node name="ColorRect" type="ColorRect" parent="UI/MarginContainer/HBoxContainer/MarginContainer3"]
+layout_mode = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="UI/MarginContainer/HBoxContainer/MarginContainer3"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/MarginContainer/HBoxContainer/MarginContainer3/CenterContainer"]
+visible = false
+layout_mode = 2
+text = "10:00"
+label_settings = ExtResource("1_gvvrj")
+
+[node name="pausebutton" type="Button" parent="UI/MarginContainer/HBoxContainer/MarginContainer3/CenterContainer"]
+layout_mode = 2
+icon = ExtResource("3_mwsib")
+flat = true
+icon_alignment = 1
+
+[connection signal="snowflake_caught" from="basketcatch-game/projectiles" to="basketcatch-game" method="_on_projectiles_snowflake_caught"]
+[connection signal="event_happened" from="basketcatch-game/gamelogic/visualeffects/eventlistener" to="basketcatch-game/gamelogic/visualeffects" method="_on_eventlistener_event_happened"]
+[connection signal="event_happened" from="basketcatch-game/gamelogic/scorekeeper/eventlistener" to="basketcatch-game/gamelogic/scorekeeper" method="_on_eventlistener_event_happened"]

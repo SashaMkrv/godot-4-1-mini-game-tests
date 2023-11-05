@@ -1,3 +1,7 @@
+Node
+AudioStreamPlayer
+Timer
+GPUParticles2D
 CollisionShape2D
 Area2D
 RayCast2D
@@ -10,14 +14,11 @@ BoxContainer
 Button
 CheckButton
 CharacterBody2D
-Node
 CenterContainer
 ColorRect
 HBoxContainer
 Label
 VBoxContainer
-Timer
-AudioStreamPlayer
 RichTextLabel
 CollisionPolygon2D
 Control

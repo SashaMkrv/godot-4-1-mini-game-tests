@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c881d372ar4m6"]
+
+[ext_resource type="Script" path="res://basketcatch-game/Scripts/eventlistener.gd" id="1_ybc15"]
+
+[node name="eventlistener" type="Node"]
+script = ExtResource("1_ybc15")

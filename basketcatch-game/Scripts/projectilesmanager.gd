@@ -6,6 +6,9 @@ extends Node2D
 
 @export var snowflakeScene: PackedScene
 
+signal snowflake_caught(snowflake: SnowflakePro) # this is worrying because it's getting destroyed
+# but well. uh. just don't hold onto it!
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
 	var randfloat = randf()
@@ -22,6 +25,7 @@ func _on_snowflake_is_caught(snowflake: SnowflakePro) -> void:
 func snowflakeCatch(snowflake: SnowflakePro) -> void:
 	print_debug("Caught snowflake!")
 	snowflake.queue_free()
+	snowflake_caught.emit(snowflake)
 	# play fun particle explosion where the snowflake was when it was caught
 
 func spawnSnowflakeAtRandomLocation() -> void:
