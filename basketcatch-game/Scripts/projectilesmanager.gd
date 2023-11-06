@@ -36,6 +36,6 @@ func spawnSnowflakeAtRandomLocation() -> void:
 func spawnSnowflakeAt(newLocation: Vector2) -> void:
 	var node := snowflakeScene.instantiate()
 	var snowflake := node as SnowflakePro
-	snowflake.position = newLocation
 	add_child(snowflake)
+	snowflake.global_position = newLocation
 	snowflake.is_caught.connect(_on_snowflake_is_caught)

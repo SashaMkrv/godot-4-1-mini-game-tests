@@ -28,7 +28,7 @@ script = ExtResource("1_pmaxd")
 
 [node name="player" type="CharacterBody2D" parent="."]
 editor_description = "does this use physics process to check if a key is pressed for moving? yes. absolutely. make sure pausing works right, buddy!"
-position = Vector2(244, 701)
+position = Vector2(244, 620)
 motion_mode = 1
 script = ExtResource("2_l480u")
 
@@ -64,10 +64,11 @@ spawner = NodePath("../spawnarea")
 snowflakeScene = ExtResource("4_noh8t")
 
 [node name="spawnarea" type="Node2D" parent="."]
+position = Vector2(0, -81)
 script = ExtResource("5_csheb")
 
 [node name="spawnline" type="Line2D" parent="spawnarea"]
-points = PackedVector2Array(2, 300, 499, 300)
+points = PackedVector2Array(36, 301, 464, 302)
 
 [node name="clouds" type="Node2D" parent="spawnarea"]
 
@@ -80,10 +81,10 @@ polygon = PackedVector2Array(-40, 237, 389, 241, 391, 178, 367, 156, 308, 158, 3
 [node name="cloud" type="Polygon2D" parent="spawnarea/clouds"]
 position = Vector2(3, 105)
 color = Color(0.84, 0.7812, 0.79198, 1)
-polygon = PackedVector2Array(-40, 237, 389, 241, 391, 178, 367, 156, 308, 158, 306, 100, 278, 72, 211, 58, 180, 72, 142, 36, 110, 17, 65, 35, 17, 7, -35, 20)
+polygon = PackedVector2Array(-40, 237, 389, 241, 391, 178, 367, 156, 308, 158, 306, 100, 278, 72, 211, 58, 180, 72, 142, 36, 110, 17, 65, 35, 17, 7, -35, 20, -75, 76, -132, 59, -180, 101, -187, 151, -235, 141, -266, 168, -269, 239)
 
 [node name="failarea" type="Node2D" parent="."]
-position = Vector2(272, 731)
+position = Vector2(272, 650)
 
 [node name="despawn" type="Area2D" parent="failarea" groups=["despawn"]]
 collision_layer = 2
@@ -91,7 +92,7 @@ collision_mask = 0
 
 [node name="groundpolygon" type="Polygon2D" parent="failarea/despawn"]
 position = Vector2(-963, -1628)
-polygon = PackedVector2Array(639, 1631, 1228, 1631, 1311, 1835, 563, 1813)
+polygon = PackedVector2Array(702, 1629, 1183, 1631, 1161, 1759, 946, 1786, 730, 1755)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="failarea/despawn"]
 shape = SubResource("WorldBoundaryShape2D_d1hwl")
@@ -101,11 +102,11 @@ one_way_collision_margin = 5.0
 position = Vector2(254, 392)
 
 [node name="left" type="CollisionShape2D" parent="boundary"]
-position = Vector2(-262, 3)
+position = Vector2(-243, 6)
 shape = SubResource("RectangleShape2D_lqjxy")
 
 [node name="right" type="CollisionShape2D" parent="boundary"]
-position = Vector2(256, 5)
+position = Vector2(236, 5)
 shape = SubResource("RectangleShape2D_lqjxy")
 
 [node name="gamelogic" type="Node" parent="." node_paths=PackedStringArray("eventListeners")]

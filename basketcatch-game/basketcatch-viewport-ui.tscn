@@ -1,19 +1,26 @@
-[gd_scene load_steps=6 format=3 uid="uid://koumk8jrefus"]
+[gd_scene load_steps=8 format=3 uid="uid://koumk8jrefus"]
 
 [ext_resource type="Script" path="res://basketcatch-game/Scripts/baskettoview.gd" id="1_ihon6"]
+[ext_resource type="Theme" uid="uid://be0yqwhjpcbgg" path="res://basketcatch-game/Assets/Style/basketcatch-viewport-ui-theme.tres" id="1_v2qi7"]
 [ext_resource type="PackedScene" uid="uid://c8w3orvy0d2um" path="res://basketcatch-game/Components/basketcatch_game.tscn" id="2_ng404"]
 [ext_resource type="Script" path="res://basketcatch-game/Scripts/ui.gd" id="3_fclww"]
 [ext_resource type="LabelSettings" uid="uid://dqb4gaweqdsqs" path="res://basketcatch-game/Assets/Style/basketlabels.tres" id="4_luw1j"]
-[ext_resource type="Texture2D" uid="uid://ds6e06pye315m" path="res://basketcatch-game/Assets/Style/ijustlikethisnoise.tres" id="5_gi5ut"]
+[ext_resource type="LabelSettings" uid="uid://brfx1nc0k3s4y" path="res://basketcatch-game/Assets/Style/basketlabelssmalltings.tres" id="6_h1m5m"]
+[ext_resource type="Script" path="res://basketcatch-game/Scripts/closablewrapper.gd" id="6_y7nk6"]
 
-[node name="basketcatch" type="Control"]
+[node name="basketcatch" type="Control" node_paths=PackedStringArray("game")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 1.0
+offset_right = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_vertical = 4
+theme = ExtResource("1_v2qi7")
 script = ExtResource("1_ihon6")
+game = NodePath("UI/MarginContainer2/AspectRatioContainer/SubViewportContainer/SubViewport/basketcatch-game")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -24,7 +31,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.631373, 0.247059, 0.298039, 1)
 
-[node name="UI" type="VBoxContainer" parent="." node_paths=PackedStringArray("scoreLabel", "timeLabel")]
+[node name="UI" type="VBoxContainer" parent="." node_paths=PackedStringArray("scoreLabel", "timeLabel", "pauseButton", "pauseMenu", "credits")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -32,8 +39,11 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("3_fclww")
-scoreLabel = NodePath("MarginContainer/HBoxContainer/MarginContainer/ScoreHBoxContainer/MarginContainer/MarginContainer/scorelabel")
-timeLabel = NodePath("MarginContainer/HBoxContainer/MarginContainer2/MarginContainer/timelabel")
+scoreLabel = NodePath("MarginContainer/HBoxContainer/scorebigmargin/ScoreHBoxContainer/MarginContainer/MarginContainer/scorelabel")
+timeLabel = NodePath("MarginContainer/HBoxContainer/timemargin/MarginContainer/timelabel")
+pauseButton = NodePath("MarginContainer/HBoxContainer/pausemargin/CenterContainer/pausebutton")
+pauseMenu = NodePath("MarginContainer2/bigpausecontainer")
+credits = NodePath("MarginContainer2/bigcreditscontainer")
 
 [node name="MarginContainer" type="MarginContainer" parent="UI"]
 layout_mode = 2
@@ -46,73 +56,70 @@ theme_override_constants/margin_bottom = 20
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="MarginContainer" type="MarginContainer" parent="UI/MarginContainer/HBoxContainer"]
+[node name="scorebigmargin" type="MarginContainer" parent="UI/MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="ScoreHBoxContainer" type="HBoxContainer" parent="UI/MarginContainer/HBoxContainer/MarginContainer"]
+[node name="ScoreHBoxContainer" type="HBoxContainer" parent="UI/MarginContainer/HBoxContainer/scorebigmargin"]
 layout_mode = 2
 
-[node name="scoretextlabel" type="Label" parent="UI/MarginContainer/HBoxContainer/MarginContainer/ScoreHBoxContainer"]
+[node name="scoretextlabel" type="Label" parent="UI/MarginContainer/HBoxContainer/scorebigmargin/ScoreHBoxContainer"]
 layout_mode = 2
 text = "Caught:"
 label_settings = ExtResource("4_luw1j")
 
-[node name="MarginContainer" type="MarginContainer" parent="UI/MarginContainer/HBoxContainer/MarginContainer/ScoreHBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="UI/MarginContainer/HBoxContainer/scorebigmargin/ScoreHBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_right = 10
 
-[node name="ColorRect" type="ColorRect" parent="UI/MarginContainer/HBoxContainer/MarginContainer/ScoreHBoxContainer/MarginContainer"]
+[node name="ColorRect" type="Panel" parent="UI/MarginContainer/HBoxContainer/scorebigmargin/ScoreHBoxContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="UI/MarginContainer/HBoxContainer/MarginContainer/ScoreHBoxContainer/MarginContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="UI/MarginContainer/HBoxContainer/scorebigmargin/ScoreHBoxContainer/MarginContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_right = 10
 
-[node name="scorelabel" type="Label" parent="UI/MarginContainer/HBoxContainer/MarginContainer/ScoreHBoxContainer/MarginContainer/MarginContainer"]
+[node name="scorelabel" type="Label" parent="UI/MarginContainer/HBoxContainer/scorebigmargin/ScoreHBoxContainer/MarginContainer/MarginContainer"]
 layout_mode = 2
 text = "0"
 label_settings = ExtResource("4_luw1j")
 
-[node name="MarginContainer2" type="MarginContainer" parent="UI/MarginContainer/HBoxContainer"]
+[node name="timemargin" type="MarginContainer" parent="UI/MarginContainer/HBoxContainer"]
 layout_mode = 2
 
-[node name="ColorRect" type="ColorRect" parent="UI/MarginContainer/HBoxContainer/MarginContainer2"]
+[node name="ColorRect" type="Panel" parent="UI/MarginContainer/HBoxContainer/timemargin"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="UI/MarginContainer/HBoxContainer/MarginContainer2"]
+[node name="MarginContainer" type="MarginContainer" parent="UI/MarginContainer/HBoxContainer/timemargin"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_right = 10
 
-[node name="timelabel" type="Label" parent="UI/MarginContainer/HBoxContainer/MarginContainer2/MarginContainer"]
+[node name="timelabel" type="Label" parent="UI/MarginContainer/HBoxContainer/timemargin/MarginContainer"]
 layout_mode = 2
 text = "10:00"
 label_settings = ExtResource("4_luw1j")
 
-[node name="MarginContainer3" type="MarginContainer" parent="UI/MarginContainer/HBoxContainer"]
+[node name="pausemargin" type="MarginContainer" parent="UI/MarginContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_right = 10
 
-[node name="ColorRect" type="ColorRect" parent="UI/MarginContainer/HBoxContainer/MarginContainer3"]
+[node name="CenterContainer" type="CenterContainer" parent="UI/MarginContainer/HBoxContainer/pausemargin"]
 layout_mode = 2
 
-[node name="CenterContainer" type="CenterContainer" parent="UI/MarginContainer/HBoxContainer/MarginContainer3"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="UI/MarginContainer/HBoxContainer/MarginContainer3/CenterContainer"]
+[node name="Label" type="Label" parent="UI/MarginContainer/HBoxContainer/pausemargin/CenterContainer"]
 visible = false
 layout_mode = 2
 text = "10:00"
 label_settings = ExtResource("4_luw1j")
 
-[node name="pausebutton" type="Button" parent="UI/MarginContainer/HBoxContainer/MarginContainer3/CenterContainer"]
+[node name="pausebutton" type="Button" parent="UI/MarginContainer/HBoxContainer/pausemargin/CenterContainer"]
 layout_mode = 2
-icon = ExtResource("5_gi5ut")
-flat = true
+theme = ExtResource("1_v2qi7")
+text = "❚❚"
 icon_alignment = 1
 
 [node name="MarginContainer2" type="MarginContainer" parent="UI"]
@@ -138,59 +145,125 @@ size = Vector2i(460, 657)
 render_target_update_mode = 4
 
 [node name="Camera2D" type="Camera2D" parent="UI/MarginContainer2/AspectRatioContainer/SubViewportContainer/SubViewport"]
-anchor_mode = 0
 enabled = false
 
 [node name="basketcatch-game" parent="UI/MarginContainer2/AspectRatioContainer/SubViewportContainer/SubViewport" instance=ExtResource("2_ng404")]
-position = Vector2(0, -100)
+position = Vector2(-20, -10)
 
-[node name="CenterContainer" type="CenterContainer" parent="UI/MarginContainer2"]
+[node name="bigpausecontainer" type="CenterContainer" parent="UI/MarginContainer2"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="UI/MarginContainer2/CenterContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 40
-theme_override_constants/margin_top = 40
-theme_override_constants/margin_right = 40
-theme_override_constants/margin_bottom = 40
-
-[node name="Panel" type="PanelContainer" parent="UI/MarginContainer2/CenterContainer/MarginContainer"]
-layout_mode = 2
-
-[node name="ColorRect" type="ColorRect" parent="UI/MarginContainer2/CenterContainer/MarginContainer/Panel"]
-visible = false
-layout_mode = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="UI/MarginContainer2/CenterContainer/MarginContainer/Panel"]
+[node name="MarginContainer" type="MarginContainer" parent="UI/MarginContainer2/bigpausecontainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 40
 theme_override_constants/margin_top = 40
 theme_override_constants/margin_right = 40
 theme_override_constants/margin_bottom = 40
 
-[node name="HBoxContainer" type="VBoxContainer" parent="UI/MarginContainer2/CenterContainer/MarginContainer/Panel/MarginContainer"]
+[node name="Panel" type="PanelContainer" parent="UI/MarginContainer2/bigpausecontainer/MarginContainer"]
 layout_mode = 2
-theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="UI/MarginContainer2/CenterContainer/MarginContainer/Panel/MarginContainer/HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="UI/MarginContainer2/bigpausecontainer/MarginContainer/Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
+
+[node name="HBoxContainer" type="VBoxContainer" parent="UI/MarginContainer2/bigpausecontainer/MarginContainer/Panel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="UI/MarginContainer2/bigpausecontainer/MarginContainer/Panel/MarginContainer/HBoxContainer"]
 layout_mode = 2
 text = "Snowflake Catch"
 label_settings = ExtResource("4_luw1j")
 
-[node name="Button" type="Button" parent="UI/MarginContainer2/CenterContainer/MarginContainer/Panel/MarginContainer/HBoxContainer"]
+[node name="exitgamebutton" type="Button" parent="UI/MarginContainer2/bigpausecontainer/MarginContainer/Panel/MarginContainer/HBoxContainer"]
 layout_mode = 2
 text = "Exit Game"
 
-[node name="Button2" type="Button" parent="UI/MarginContainer2/CenterContainer/MarginContainer/Panel/MarginContainer/HBoxContainer"]
+[node name="restartgamebutton" type="Button" parent="UI/MarginContainer2/bigpausecontainer/MarginContainer/Panel/MarginContainer/HBoxContainer"]
 layout_mode = 2
 text = "Restart"
 
-[node name="Button3" type="Button" parent="UI/MarginContainer2/CenterContainer/MarginContainer/Panel/MarginContainer/HBoxContainer"]
+[node name="continuegamebutton" type="Button" parent="UI/MarginContainer2/bigpausecontainer/MarginContainer/Panel/MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "Continue"
+
+[node name="creditsbutton" type="Button" parent="UI/MarginContainer2/bigpausecontainer/MarginContainer/Panel/MarginContainer/HBoxContainer"]
 layout_mode = 2
 text = "Credits
 "
 
+[node name="bigcreditscontainer" type="CenterContainer" parent="UI/MarginContainer2"]
+visible = false
+layout_mode = 2
+script = ExtResource("6_y7nk6")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/MarginContainer2/bigcreditscontainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
+
+[node name="Panel" type="PanelContainer" parent="UI/MarginContainer2/bigcreditscontainer/MarginContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/MarginContainer2/bigcreditscontainer/MarginContainer/Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
+
+[node name="ColorRect" type="ColorRect" parent="UI/MarginContainer2/bigcreditscontainer/MarginContainer/Panel/MarginContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/MarginContainer2/bigcreditscontainer/MarginContainer/Panel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/MarginContainer2/bigcreditscontainer/MarginContainer/Panel/MarginContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/MarginContainer2/bigcreditscontainer/MarginContainer/Panel/MarginContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/MarginContainer2/bigcreditscontainer/MarginContainer/Panel/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Credits"
+label_settings = ExtResource("4_luw1j")
+
+[node name="exitcreditsbutton" type="Button" parent="UI/MarginContainer2/bigcreditscontainer/MarginContainer/Panel/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Close"
+
+[node name="Label2" type="Label" parent="UI/MarginContainer2/bigcreditscontainer/MarginContainer/Panel/MarginContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "I've got nothing this
+time. Thanks Godot :)"
+label_settings = ExtResource("6_h1m5m")
+
 [node name="Camera2D" type="Camera2D" parent="."]
+visible = false
 anchor_mode = 0
 
+[connection signal="continue_pressed" from="UI" to="." method="_on_ui_continue_pressed"]
+[connection signal="credits_pressed" from="UI" to="." method="_on_ui_credits_pressed"]
+[connection signal="exit_game_pressed" from="UI" to="." method="_on_ui_exit_game_pressed"]
+[connection signal="pause_putton_pressed" from="UI" to="." method="_on_ui_pause_putton_pressed"]
+[connection signal="restart_pressed" from="UI" to="." method="_on_ui_restart_pressed"]
+[connection signal="pressed" from="UI/MarginContainer/HBoxContainer/pausemargin/CenterContainer/pausebutton" to="UI" method="_on_pausebutton_pressed"]
 [connection signal="event_happened" from="UI/MarginContainer2/AspectRatioContainer/SubViewportContainer/SubViewport/basketcatch-game" to="." method="_on_basketcatchgame_event_happened"]
+[connection signal="pressed" from="UI/MarginContainer2/bigpausecontainer/MarginContainer/Panel/MarginContainer/HBoxContainer/exitgamebutton" to="UI" method="_on_exitgamebutton_pressed"]
+[connection signal="pressed" from="UI/MarginContainer2/bigpausecontainer/MarginContainer/Panel/MarginContainer/HBoxContainer/restartgamebutton" to="UI" method="_on_restartgamebutton_pressed"]
+[connection signal="pressed" from="UI/MarginContainer2/bigpausecontainer/MarginContainer/Panel/MarginContainer/HBoxContainer/continuegamebutton" to="UI" method="_on_continuegamebutton_pressed"]
+[connection signal="pressed" from="UI/MarginContainer2/bigpausecontainer/MarginContainer/Panel/MarginContainer/HBoxContainer/creditsbutton" to="UI" method="_on_creditsbutton_pressed"]
+[connection signal="pressed" from="UI/MarginContainer2/bigcreditscontainer/MarginContainer/Panel/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/exitcreditsbutton" to="UI/MarginContainer2/bigcreditscontainer" method="hide_me"]
