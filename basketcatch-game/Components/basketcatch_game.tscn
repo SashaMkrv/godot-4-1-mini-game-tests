@@ -28,7 +28,7 @@ script = ExtResource("1_pmaxd")
 
 [node name="player" type="CharacterBody2D" parent="."]
 editor_description = "does this use physics process to check if a key is pressed for moving? yes. absolutely. make sure pausing works right, buddy!"
-position = Vector2(244, 620)
+position = Vector2(227, 592)
 motion_mode = 1
 script = ExtResource("2_l480u")
 
@@ -64,7 +64,7 @@ spawner = NodePath("../spawnarea")
 snowflakeScene = ExtResource("4_noh8t")
 
 [node name="spawnarea" type="Node2D" parent="."]
-position = Vector2(0, -81)
+position = Vector2(-17, -109)
 script = ExtResource("5_csheb")
 
 [node name="spawnline" type="Line2D" parent="spawnarea"]
@@ -84,7 +84,7 @@ color = Color(0.84, 0.7812, 0.79198, 1)
 polygon = PackedVector2Array(-40, 237, 389, 241, 391, 178, 367, 156, 308, 158, 306, 100, 278, 72, 211, 58, 180, 72, 142, 36, 110, 17, 65, 35, 17, 7, -35, 20, -75, 76, -132, 59, -180, 101, -187, 151, -235, 141, -266, 168, -269, 239)
 
 [node name="failarea" type="Node2D" parent="."]
-position = Vector2(272, 650)
+position = Vector2(255, 622)
 
 [node name="despawn" type="Area2D" parent="failarea" groups=["despawn"]]
 collision_layer = 2
@@ -99,7 +99,7 @@ shape = SubResource("WorldBoundaryShape2D_d1hwl")
 one_way_collision_margin = 5.0
 
 [node name="boundary" type="StaticBody2D" parent="."]
-position = Vector2(254, 392)
+position = Vector2(237, 364)
 
 [node name="left" type="CollisionShape2D" parent="boundary"]
 position = Vector2(-243, 6)

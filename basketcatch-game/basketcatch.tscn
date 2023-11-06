@@ -25,7 +25,7 @@ grow_vertical = 2
 color = Color(0.631373, 0.247059, 0.298039, 1)
 
 [node name="basketcatch-game" parent="." instance=ExtResource("1_prfgp")]
-position = Vector2(-2, -3)
+position = Vector2(16, 28)
 
 [node name="UI" type="VBoxContainer" parent="." node_paths=PackedStringArray("scoreLabel", "timeLabel")]
 layout_mode = 1

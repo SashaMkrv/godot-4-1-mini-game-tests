@@ -1,13 +1,15 @@
-Panel
+CenterContainer
+Container
+AspectRatioContainer
 Button
 HBoxContainer
 VBoxContainer
 Label
+HSlider
+Panel
 MarginContainer
 PanelContainer
 ColorRect
-CenterContainer
-AspectRatioContainer
 SubViewportContainer
 TextureRect
 SubViewport
@@ -28,4 +30,3 @@ CheckButton
 CharacterBody2D
 RichTextLabel
 CollisionPolygon2D
-Control

@@ -40,6 +40,10 @@ func creditsButtonPressed() -> void:
 	# but nothing else??? shouldn't I be stacking these????
 	# soemthing??? anything??? some kind of consistency????
 
+func optionsButtonPressed() -> void:
+	ui.showOptions()
+	# the sins continue.
+
 func exitGamePressed() -> void:
 	print_debug("I can't let you do that hal :(")
 
@@ -70,3 +74,6 @@ func _on_ui_restart_pressed():
 
 func _on_ui_continue_pressed():
 	continueGamePressed()
+
+func _on_ui_options_pressed():
+	optionsButtonPressed()
