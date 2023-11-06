@@ -19,3 +19,8 @@ res://basketcatch-game/Scripts/gameinfotracker.gd
 res://basketcatch-game/Scripts/basketcatchgameevent.gd
 res://basketcatch-game/Scripts/scoreupdatedevent.gd
 res://basketcatch-game/Components/basketcatch_game.tscn
+res://basketcatch-game/Scripts/baskettoview.gd
+res://basketcatch-game/Scripts/ui.gd
+res://basketcatch-game/Scripts/timekeeper.gd
+res://basketcatch-game/Scripts/timeupdated.gd
+res://basketcatch-game/basketcatch-viewport-ui.tscn

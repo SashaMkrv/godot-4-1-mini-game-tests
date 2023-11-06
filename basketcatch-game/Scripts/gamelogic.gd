@@ -15,3 +15,7 @@ func emitGameEvent(event: BasketCatchGameEvent) -> void:
 
 func _on_scorekeeper_event_happened(event: BasketCatchGameEvent) -> void:
 	emitGameEvent(event)
+
+
+func _on_timekeeper_event_happened(event: BasketCatchGameEvent) -> void:
+	emitGameEvent(event)

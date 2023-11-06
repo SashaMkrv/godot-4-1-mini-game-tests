@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://c8w3orvy0d2um"]
+[gd_scene load_steps=16 format=3 uid="uid://c8w3orvy0d2um"]
 
 [ext_resource type="Script" path="res://basketcatch-game/Scripts/basketcatch-game.gd" id="1_pmaxd"]
 [ext_resource type="Script" path="res://basketcatch-game/Scripts/player.gd" id="2_l480u"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://k6ug2rv8utbc" path="res://basketcatch-game/Components/snowcatchparticles.tscn" id="8_rbb54"]
 [ext_resource type="PackedScene" uid="uid://c881d372ar4m6" path="res://basketcatch-game/Components/eventlistener.tscn" id="9_slps1"]
 [ext_resource type="Script" path="res://basketcatch-game/Scripts/gameinfotracker.gd" id="10_jx4jf"]
+[ext_resource type="Script" path="res://basketcatch-game/Scripts/timekeeper.gd" id="11_hne01"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sbedy"]
 size = Vector2(93, 113)
@@ -135,13 +136,17 @@ script = ExtResource("10_jx4jf")
 [node name="eventlistener" parent="gamelogic/scorekeeper" instance=ExtResource("9_slps1")]
 
 [node name="timekeeper" type="Node" parent="gamelogic"]
+script = ExtResource("11_hne01")
 
 [node name="eventlistener" parent="gamelogic/timekeeper" instance=ExtResource("9_slps1")]
 
 [node name="Timer" type="Timer" parent="gamelogic/timekeeper"]
+process_callback = 0
 
 [connection signal="snowflake_caught" from="projectiles" to="." method="_on_projectiles_snowflake_caught"]
 [connection signal="event_happened" from="gamelogic" to="." method="_on_gamelogic_event_happened"]
 [connection signal="event_happened" from="gamelogic/visualeffects/eventlistener" to="gamelogic/visualeffects" method="_on_eventlistener_event_happened"]
 [connection signal="event_happened" from="gamelogic/scorekeeper" to="gamelogic" method="_on_scorekeeper_event_happened"]
 [connection signal="event_happened" from="gamelogic/scorekeeper/eventlistener" to="gamelogic/scorekeeper" method="_on_eventlistener_event_happened"]
+[connection signal="event_happened" from="gamelogic/timekeeper" to="gamelogic" method="_on_timekeeper_event_happened"]
+[connection signal="timeout" from="gamelogic/timekeeper/Timer" to="gamelogic/timekeeper" method="_on_timer_timeout"]

@@ -1,7 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://lro3hh0womev"]
+[gd_scene load_steps=6 format=3 uid="uid://lro3hh0womev"]
 
 [ext_resource type="LabelSettings" uid="uid://dqb4gaweqdsqs" path="res://basketcatch-game/Assets/Style/basketlabels.tres" id="1_gvvrj"]
+[ext_resource type="Script" path="res://basketcatch-game/Scripts/baskettoview.gd" id="1_hvupv"]
 [ext_resource type="PackedScene" uid="uid://c8w3orvy0d2um" path="res://basketcatch-game/Components/basketcatch_game.tscn" id="1_prfgp"]
+[ext_resource type="Script" path="res://basketcatch-game/Scripts/ui.gd" id="3_3sdyx"]
 [ext_resource type="Texture2D" uid="uid://ds6e06pye315m" path="res://basketcatch-game/Assets/Style/ijustlikethisnoise.tres" id="3_mwsib"]
 
 [node name="basketcatch" type="Control"]
@@ -11,6 +13,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_hvupv")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -23,13 +26,16 @@ color = Color(0.631373, 0.247059, 0.298039, 1)
 
 [node name="basketcatch-game" parent="." instance=ExtResource("1_prfgp")]
 
-[node name="UI" type="VBoxContainer" parent="."]
+[node name="UI" type="VBoxContainer" parent="." node_paths=PackedStringArray("scoreLabel", "timeLabel")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("3_3sdyx")
+scoreLabel = NodePath("MarginContainer/HBoxContainer/MarginContainer/ScoreHBoxContainer/MarginContainer/MarginContainer/scorelabel")
+timeLabel = NodePath("MarginContainer/HBoxContainer/MarginContainer2/MarginContainer/timelabel")
 
 [node name="MarginContainer" type="MarginContainer" parent="UI"]
 layout_mode = 2
@@ -83,7 +89,7 @@ layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_right = 10
 
-[node name="Label" type="Label" parent="UI/MarginContainer/HBoxContainer/MarginContainer2/MarginContainer"]
+[node name="timelabel" type="Label" parent="UI/MarginContainer/HBoxContainer/MarginContainer2/MarginContainer"]
 layout_mode = 2
 text = "10:00"
 label_settings = ExtResource("1_gvvrj")
@@ -110,3 +116,5 @@ layout_mode = 2
 icon = ExtResource("3_mwsib")
 flat = true
 icon_alignment = 1
+
+[connection signal="event_happened" from="basketcatch-game" to="." method="_on_basketcatchgame_event_happened"]
