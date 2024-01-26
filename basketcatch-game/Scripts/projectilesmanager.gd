@@ -8,6 +8,7 @@ extends Node2D
 
 signal snowflake_caught(snowflake: SnowflakePro) # this is worrying because it's getting destroyed
 # but well. uh. just don't hold onto it!
+signal snowflake_died(snowflake: SnowflakePro)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
@@ -22,11 +23,18 @@ func _physics_process(delta: float) -> void:
 func _on_snowflake_is_caught(snowflake: SnowflakePro) -> void:
 	snowflakeCatch(snowflake)
 
+func _on_snowflake_is_dead(snowflake: SnowflakePro) -> void:
+	snowflakeDie(snowflake)
+
 func snowflakeCatch(snowflake: SnowflakePro) -> void:
 	print_debug("Caught snowflake!")
 	snowflake.queue_free()
 	snowflake_caught.emit(snowflake)
 	# play fun particle explosion where the snowflake was when it was caught
+
+func snowflakeDie(snowflake: SnowflakePro) -> void:
+	print_debug("Dropped snowflake!")
+	snowflake_died.emit(snowflake)
 
 func spawnSnowflakeAtRandomLocation() -> void:
 	var location = spawner.getRandomLocation()
@@ -39,3 +47,4 @@ func spawnSnowflakeAt(newLocation: Vector2) -> void:
 	add_child(snowflake)
 	snowflake.global_position = newLocation
 	snowflake.is_caught.connect(_on_snowflake_is_caught)
+	snowflake.is_dead.connect(_on_snowflake_is_dead)

@@ -4,12 +4,14 @@ class_name BasketGameUI
 
 @export var scoreLabel: Label
 @export var timeLabel: Label
+@export var endScoreLabel: Label
 
 @export var pauseButton: Button
 
 @export var pauseMenu: Control
 @export var credits: Control
 @export var options: Control
+@export var endGame: Control
 
 signal pause_putton_pressed
 signal exit_game_pressed
@@ -23,6 +25,9 @@ func updateScore(score: String) -> void:
 
 func updateTime(time: String) -> void:
 	timeLabel.text = time
+
+func updateEndScoreLabel(score: String) -> void:
+	endScoreLabel.text = score
 
 func togglePauseMenu() -> void:
 	pauseMenu.visible = ! pauseMenu.visible
@@ -38,6 +43,9 @@ func showCredits() -> void:
 
 func showOptions() -> void:
 	options.visible = true
+
+func showEndGame() -> void:
+	endGame.visible = true
 
 func closeAllMenus() -> void:
 	credits.visible = false

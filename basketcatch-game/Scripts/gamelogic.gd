@@ -1,6 +1,6 @@
 extends Node
 
-class_name BasketGameLogic
+class_name BasketGameEventPropogator
 
 @export var eventListeners: Array[BasketEventListener]
 
@@ -12,10 +12,3 @@ func eventHappened(event: BasketCatchEvent) -> void:
 
 func emitGameEvent(event: BasketCatchGameEvent) -> void:
 	event_happened.emit(event)
-
-func _on_scorekeeper_event_happened(event: BasketCatchGameEvent) -> void:
-	emitGameEvent(event)
-
-
-func _on_timekeeper_event_happened(event: BasketCatchGameEvent) -> void:
-	emitGameEvent(event)

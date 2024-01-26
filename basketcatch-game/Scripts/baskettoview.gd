@@ -19,9 +19,18 @@ func pauseGame(paused: bool) -> void:
 
 func _on_basketcatchgame_event_happened(event: BasketCatchGameEvent) -> void:
 	if event is BasketGameScoreUpdatedEvent:
-		ui.updateScore(event.getScoreString())
+		var str = event.getScoreString()
+		ui.updateScore(str)
+		ui.updateEndScoreLabel(str)
 	if event is BasketGameTimeUpdatedEvent:
 		ui.updateTime(event.getTimeDownString())
+	if event is BasketGameGameEndedEvent:
+		gameEnded()
+
+func gameEnded() -> void:
+	ui.showEndGame()
+	isGamePaused = true
+	pauseGame(isGamePaused)
 
 func pauseButtonPressed() -> void:
 	print_debug("paused button event makes it")

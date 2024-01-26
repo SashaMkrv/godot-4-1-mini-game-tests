@@ -9,6 +9,7 @@ class_name SnowflakePro
 @export var liveAreas: Array[Area2D]
 
 signal is_caught(snowflake: SnowflakePro)
+signal is_dead(snowflake: SnowflakePro)
 
 func _ready():
 	setAlive()
@@ -34,7 +35,7 @@ func setDead() -> void:
 	setAllMonitoringTo(liveAreas, false)
 	setAllMonitoringTo(deadAreas, true)
 	moving = false
-	pass
+	is_dead.emit(self)
 
 func setAlive() -> void:
 	setAllMonitoringTo(liveAreas, true)

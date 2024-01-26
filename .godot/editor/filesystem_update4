@@ -12,3 +12,13 @@ res://basketcatch-game/Components/snowcatchparticles.tscn
 res://basketcatch-game/basketcatch.tscn
 res://basketcatch-game/Components/basketcatch_game.tscn
 res://basketcatch-game/basketcatch-viewportspreadtest.tscn
+res://basketcatch-game/Scripts/timekeeper.gd
+res://basketcatch-game/Scripts/timesupevent.gd
+res://basketcatch-game/Scripts/timeupdatedevent.gd
+res://basketcatch-game/Scripts/gamelogic.gd
+res://basketcatch-game/Scripts/basketcatch-game.gd
+res://basketcatch-game/Components/snowflaketwomasks.gd
+res://basketcatch-game/Scripts/projectilesmanager.gd
+res://basketcatch-game/Scripts/scoreaddevent.gd
+res://basketcatch-game/Scripts/checkendgame.gd
+res://basketcatch-game/Scripts/gameender.gd

@@ -1,0 +1,3 @@
+extends BasketCatchGameEvent
+
+class_name BasketGameGameEndedEvent
